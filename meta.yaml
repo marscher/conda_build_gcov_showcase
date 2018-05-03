@@ -10,12 +10,9 @@ build:
   script: gcc --coverage main.c -o foobar; cp foobar {{ PREFIX }}/bin
 
 test:
-    requires:
-            - python
-            - pip
-    commands:
+  commands:
     - foobar
-    - pip install cpp-coveralls 
     - find {{ SRC_DIR }} -name \*.gcda       
-    - coveralls --exclude lib --exclude tests --gcov-options '\-lp' --root {{ SRC_DIR }}
+      #- coveralls --exclude lib --exclude tests --gcov-options '\-lp' --root {{ SRC_DIR }}
+    -  bash <(curl -s https://codecov.io/bash) -p {{ SRC_DIR }}
 
