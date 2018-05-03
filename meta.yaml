@@ -1,0 +1,20 @@
+package:
+  name: test-gcov 
+  version: dev
+
+source:
+  path: ./
+
+build:
+  number: 0
+  script: gcc --coverage main.c -o foobar; cp foobar {{ PREFIX }}/bin
+
+test:
+    requires:
+            - python
+    commands:
+    - foobar
+    - pip install --user cpp-coveralls
+    - find {{ SRC_DIR }} -name \*.gcda       
+    - coveralls --exclude lib --exclude tests --gcov-options '\-lp' --root {{ SRC_DIR }}
+
