@@ -12,6 +12,7 @@ build:
 test:
     requires:
             - python
+            - pip
     commands:
     - foobar
     - pip install --user cpp-coveralls
